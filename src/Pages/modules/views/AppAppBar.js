@@ -27,25 +27,6 @@ function AppAppBar() {
                     >
                         <Box component='span' sx={{ color: 'secondary.main' }}>A</Box>nil <Box component='span' sx={{ color: 'secondary.main' }}>T</Box>gga
                     </Link>
-                    {/* <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
-                        <Link
-                            color="inherit"
-                            variant="h6"
-                            underline="none"
-                            href="/premium-themes/onepirate/sign-in/"
-                            sx={rightLink}
-                        >
-                            {'Sign In'}
-                        </Link>
-                        <Link
-                            variant="h6"
-                            underline="none"
-                            href="/premium-themes/onepirate/sign-up/"
-                            sx={{ ...rightLink, color: 'secondary.main' }}
-                        >
-                            {'Sign Up'}
-                        </Link>
-                    </Box> */}
                 </Toolbar>
             </AppBar>
             <Toolbar />
