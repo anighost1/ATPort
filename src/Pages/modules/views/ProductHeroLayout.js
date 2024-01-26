@@ -10,8 +10,8 @@ const ProductHeroLayoutRoot = styled('section')(({ theme }) => ({
   position: 'relative',
   display: 'flex',
   alignItems: 'center',
-  [theme.breakpoints.up('sm')]: {
-    height: '80vh',
+  [theme.breakpoints.up('xs')]: {
+    height: '100vh',
     minHeight: 500,
     maxHeight: 1300,
   },
@@ -26,6 +26,7 @@ const Background = styled(Box)({
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
   zIndex: -2,
+  height:'100vh'
 });
 
 function ProductHeroLayout(props) {

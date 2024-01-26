@@ -5,6 +5,7 @@ import ProductHeroLayout from './ProductHeroLayout';
 
 // images
 import bgImage from '../../../Assests/Images/subtle-prism.svg'
+import { Box } from '@mui/material';
 
 const backgroundImage = bgImage
 
@@ -24,7 +25,13 @@ export default function ProductHero() {
                 alt="increase priority"
             />
             <Typography color="inherit" align="center" variant="h2" marked="center">
-                Anil Tigga
+                {/* <span>A</span><span className='after'>nil</span> <span className='initial'>T</span><span className='after'>igga</span> */}
+                <Box id='at' sx={{fontSize:{xs:'2rem', sm:'3rem'}}}>
+                    <Box component={'h1'} className='initial' sx={{ color: 'secondary.main' }}>A</Box>
+                    <Box component={'h1'} className='after'>nil</Box>
+                    <Box component={'h1'} id='t' className='initial' sx={{ color: 'secondary.main' }}>&nbsp; T</Box>
+                    <Box component={'h1'} className='after'>igga</Box>
+                </Box>
             </Typography>
             <Typography variant="body2" color="inherit" sx={{ mt: 2 }}>
                 anil.anil300@gmail.com
@@ -35,9 +42,7 @@ export default function ProductHero() {
                 variant="h5"
                 sx={{ mb: 4, mt: { xs: 4, sm: 10 } }}
             >
-                A software engineer who is skilled in React.js, Node.js, Laravel, SQL, and more. He transforms innovative ideas 
-                into top-tier software solutions, specializing in front-end development with React.js and building robust back-end 
-                systems using Node.js and Laravel. His expertise drives dynamic web application development.
+                A software engineer who is eager to learn more and build robust systems.
             </Typography>
         </ProductHeroLayout>
     );
