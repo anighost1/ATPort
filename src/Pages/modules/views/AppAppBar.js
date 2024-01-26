@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import AppBar from '../components/AppBar';
@@ -10,18 +10,27 @@ import {
     IconButton
 } from '@mui/material';
 
-import MenuIcon from '@mui/icons-material/Menu';
+import MenuDrawer from '../components/MenuDrawer';
 
-const rightLink = {
-    fontSize: 16,
-    color: 'common.white',
-    ml: 3,
-};
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 
 function AppAppBar() {
+
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
+    const triggerDrawer = () => {
+        setIsDrawerOpen(state => !state)
+    }
+
     return (
         <div>
-            <AppBar position="fixed">
+            <AppBar
+                position="fixed"
+                sx={{
+                    zIndex: (theme) => theme.zIndex.drawer + 1
+                }}
+            >
                 <Toolbar
                     sx={{
                         justifyContent: {
@@ -30,7 +39,6 @@ function AppAppBar() {
                         }
                     }}
                 >
-                    {/* <Box sx={{ flex: 1 }} /> */}
                     <Link
                         variant="h6"
                         underline="none"
@@ -68,9 +76,12 @@ function AppAppBar() {
                             display: {
                                 sm: 'none'
                             }
-                        }}>
-                        <MenuIcon fontSize='large' sx={{ color: 'white' }} />
+                        }}
+                        onClick={triggerDrawer}
+                    >
+                        {isDrawerOpen?<CloseIcon fontSize='large' sx={{ color: 'white' }} />:<MenuIcon fontSize='large' sx={{ color: 'white' }} />}
                     </IconButton>
+                    <MenuDrawer isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />
                 </Toolbar>
             </AppBar>
         </div>
