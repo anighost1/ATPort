@@ -1,54 +1,99 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
 import AppBar from '../components/AppBar';
 import Toolbar from '../components/Toolbar';
+import {
+    Stack,
+    ListItemButton,
+    ListItemText,
+    IconButton,
+    Typography
+} from '@mui/material';
 
-const rightLink = {
-  fontSize: 16,
-  color: 'common.white',
-  ml: 3,
-};
+import MenuDrawer from '../components/MenuDrawer';
+
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+import { useNavigate, NavLink } from 'react-router-dom';
 
 function AppAppBar() {
-  return (
-    <div>
-      <AppBar position="fixed">
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
-          <Box sx={{ flex: 1 }} />
-          <Link
-            variant="h6"
-            underline="none"
-            color="inherit"
-            href="/premium-themes/onepirate/"
-            sx={{ fontSize: 24 }}
-          >
-            {'onepirate'}
-          </Link>
-          <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
-            <Link
-              color="inherit"
-              variant="h6"
-              underline="none"
-              href="/premium-themes/onepirate/sign-in/"
-              sx={rightLink}
+
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+    const navigate = useNavigate()
+
+    const goToHome = () => {
+        navigate('/')
+    }
+
+    const triggerDrawer = () => {
+        setIsDrawerOpen(state => !state)
+    }
+
+    return (
+        <div>
+            <AppBar
+                position="fixed"
+                sx={{
+                    zIndex: (theme) => theme.zIndex.drawer + 1
+                }}
             >
-              {'Sign In'}
-            </Link>
-            <Link
-              variant="h6"
-              underline="none"
-              href="/premium-themes/onepirate/sign-up/"
-              sx={{ ...rightLink, color: 'secondary.main' }}
-            >
-              {'Sign Up'}
-            </Link>
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <Toolbar />
-    </div>
-  );
+                <Toolbar
+                    sx={{
+                        justifyContent: {
+                            xs: 'space-between',
+                            sm: 'space-around'
+                        }
+                    }}
+                >
+
+                    <Box
+                        sx={{
+                            fontSize: 24,
+                            cursor: 'pointer'
+                        }}
+                        onClick={goToHome}
+                    >
+                        <Box component='h1' sx={{ color: 'secondary.main' }}>AT</Box>
+                    </Box>
+                    <Stack
+                        direction={'row'}
+                        spacing={2}
+                        sx={{
+                            display: {
+                                xs: 'none',
+                                sm: 'flex'
+                            },
+                            height: '100%'
+                        }}
+                    >
+                        <ListItemButton component={NavLink} to={'/'} sx={{ textAlign: 'center' }}>
+                            <ListItemText primary={'Home'} />
+                        </ListItemButton>
+                        <ListItemButton component={NavLink} to={'/about'} sx={{ textAlign: 'center' }}>
+                            <ListItemText primary={'About'} />
+                        </ListItemButton>
+                        <ListItemButton component={NavLink} to={'/projects'} sx={{ textAlign: 'center' }}>
+                            <ListItemText primary={'Projects'} />
+                        </ListItemButton>
+                        <ListItemButton component={NavLink} to={'/contact'} sx={{ textAlign: 'center' }}>
+                            <ListItemText primary={'Contact'} />
+                        </ListItemButton>
+                    </Stack>
+                    <IconButton
+                        sx={{
+                            display: {
+                                sm: 'none'
+                            }
+                        }}
+                        onClick={triggerDrawer}
+                    >
+                        {isDrawerOpen ? <CloseIcon fontSize='large' sx={{ color: 'white' }} /> : <MenuIcon fontSize='large' sx={{ color: 'white' }} />}
+                    </IconButton>
+                    <MenuDrawer isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />
+                </Toolbar>
+            </AppBar>
+        </div>
+    );
 }
 
 export default AppAppBar;
