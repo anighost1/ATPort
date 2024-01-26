@@ -1,23 +1,29 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
 import AppBar from '../components/AppBar';
 import Toolbar from '../components/Toolbar';
 import {
     Stack,
     ListItemButton,
     ListItemText,
-    IconButton
+    IconButton,
+    Typography
 } from '@mui/material';
 
 import MenuDrawer from '../components/MenuDrawer';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import { useNavigate, NavLink } from 'react-router-dom';
 
 function AppAppBar() {
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+    const navigate = useNavigate()
+
+    const goToHome = () => {
+        navigate('/')
+    }
 
     const triggerDrawer = () => {
         setIsDrawerOpen(state => !state)
@@ -39,17 +45,16 @@ function AppAppBar() {
                         }
                     }}
                 >
-                    <Link
-                        variant="h6"
-                        underline="none"
-                        color="inherit"
-                        href="/"
+
+                    <Box
                         sx={{
-                            fontSize: 24
+                            fontSize: 24,
+                            cursor: 'pointer'
                         }}
+                        onClick={goToHome}
                     >
                         <Box component='h1' sx={{ color: 'secondary.main' }}>AT</Box>
-                    </Link>
+                    </Box>
                     <Stack
                         direction={'row'}
                         spacing={2}
@@ -61,13 +66,16 @@ function AppAppBar() {
                             height: '100%'
                         }}
                     >
-                        <ListItemButton sx={{ textAlign: 'center' }}>
-                            <ListItemText primary={'Project'} />
+                        <ListItemButton component={NavLink} to={'/'} sx={{ textAlign: 'center' }}>
+                            <ListItemText primary={'Home'} />
                         </ListItemButton>
-                        <ListItemButton sx={{ textAlign: 'center' }}>
+                        <ListItemButton component={NavLink} to={'/about'} sx={{ textAlign: 'center' }}>
                             <ListItemText primary={'About'} />
                         </ListItemButton>
-                        <ListItemButton sx={{ textAlign: 'center' }}>
+                        <ListItemButton component={NavLink} to={'/projects'} sx={{ textAlign: 'center' }}>
+                            <ListItemText primary={'Projects'} />
+                        </ListItemButton>
+                        <ListItemButton component={NavLink} to={'/contact'} sx={{ textAlign: 'center' }}>
                             <ListItemText primary={'Contact'} />
                         </ListItemButton>
                     </Stack>
@@ -79,7 +87,7 @@ function AppAppBar() {
                         }}
                         onClick={triggerDrawer}
                     >
-                        {isDrawerOpen?<CloseIcon fontSize='large' sx={{ color: 'white' }} />:<MenuIcon fontSize='large' sx={{ color: 'white' }} />}
+                        {isDrawerOpen ? <CloseIcon fontSize='large' sx={{ color: 'white' }} /> : <MenuIcon fontSize='large' sx={{ color: 'white' }} />}
                     </IconButton>
                     <MenuDrawer isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />
                 </Toolbar>

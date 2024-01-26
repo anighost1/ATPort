@@ -30,6 +30,10 @@
 }
 
 
+a.active {
+    color: #ff3366 !important;
+}
+
 
 
 @keyframes at-after {
@@ -43,3 +47,12 @@
         translate: 0px;
     }
 }
+
+@media only screen and (max-width: 600px) {
+    a.active {
+      background-color: #ff3366;
+    }
+    a.active:hover {
+        background-color: #ff3366;
+      }
+  }

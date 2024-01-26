@@ -7,6 +7,8 @@ import {
     Stack,
 } from '@mui/material'
 
+import { NavLink } from 'react-router-dom';
+
 export default function MenuDrawer({ isDrawerOpen, setIsDrawerOpen }) {
     return (
         <>
@@ -35,13 +37,16 @@ export default function MenuDrawer({ isDrawerOpen, setIsDrawerOpen }) {
                         mt: '4rem'
                     }}
                 >
-                    <ListItemButton sx={{ textAlign: 'center', borderBottom: '1px solid #ffffff11', maxHeight: '4rem' }}>
-                        <ListItemText primary={'Project'} sx={{ color: 'white' }} />
+                    <ListItemButton component={NavLink} to={'/'} sx={{ textAlign: 'center', borderBottom: '1px solid #ffffff11', maxHeight: '4rem' }}>
+                        <ListItemText primary={'Home'} sx={{ color: 'white' }} />
                     </ListItemButton>
-                    <ListItemButton sx={{ textAlign: 'center', borderBottom: '1px solid #ffffff11', maxHeight: '4rem' }}>
+                    <ListItemButton component={NavLink} to={'/about'} sx={{ textAlign: 'center', borderBottom: '1px solid #ffffff11', maxHeight: '4rem' }}>
                         <ListItemText primary={'About'} sx={{ color: 'white' }} />
                     </ListItemButton>
-                    <ListItemButton sx={{ textAlign: 'center', borderBottom: '1px solid #ffffff11', maxHeight: '4rem' }}>
+                    <ListItemButton component={NavLink} to={'/projects'} sx={{ textAlign: 'center', borderBottom: '1px solid #ffffff11', maxHeight: '4rem' }}>
+                        <ListItemText primary={'Project'} sx={{ color: 'white' }} />
+                    </ListItemButton>
+                    <ListItemButton component={NavLink} to={'/contact'} sx={{ textAlign: 'center', borderBottom: '1px solid #ffffff11', maxHeight: '4rem' }}>
                         <ListItemText primary={'Contact'} sx={{ color: 'white' }} />
                     </ListItemButton>
                 </Stack>
