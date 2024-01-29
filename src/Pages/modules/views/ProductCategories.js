@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
@@ -6,6 +6,8 @@ import Container from '@mui/material/Container';
 import Typography from '../components/Typography';
 import { Link } from 'react-router-dom';
 import Button from '../components/Button';
+
+import ProjectDetail from '../components/ProjectDetail';
 
 const ImageBackdrop = styled('div')(({ theme }) => ({
     position: 'absolute',
@@ -55,72 +57,105 @@ const ImageIconButton = styled(ButtonBase)(({ theme }) => ({
     },
 }));
 
-const images = [
+const projects = [
     {
         url: '/svg/hollowed-boxes.svg',
         title: 'Pin at Ranchi',
         width: '35%',
+        description: 'A Full stack project that holds details of various places in Ranchi for hangout, stay etc. Tech stack used is MERN. Project is has three parts -client frontend, admin panel.',
+        links: [
+            {
+                name: 'Application',
+                url: 'https://pinatranchi.onrender.com/'
+            },
+            {
+                name: 'Backend Code',
+                url: 'https://github.com/anighost1/pin-at-ranchi-server'
+            },
+            {
+                name: 'Client side UI code',
+                url: 'https://github.com/anighost1/pin-at-ranchi'
+            },
+            {
+                name: 'Admin panel code',
+                url: 'https://github.com/anighost1/pin-at-ranchi-admin'
+            },
+        ]
     },
     {
         url: '/svg/sun-tornado.svg',
         title: 'Responsive template',
         width: '30%',
+        description: 'A simple responsive template having header, sidebar, body and footer using html, css and js. Feel free to use it for your project. Everyone is invited to contribute and make it even better.',
+        links: [
+            {
+                name: 'Application',
+                url: 'https://res-template.netlify.app/'
+            },
+            {
+                name: 'Repository',
+                url: 'https://github.com/anighost1/responsive-template'
+            },
+        ]
     },
     {
         url: '/svg/geometric-intersection.svg',
         title: 'Fotos Dot Get',
         width: '35%',
+        description: 'A web application to get free photos. It is developed using Reactjs and it uses Unsplash API for data.',
+        links: [
+            {
+                name: 'Application',
+                url: 'https://fotosdotget.netlify.app/'
+            },
+            {
+                name: 'Repository',
+                url: 'https://github.com/anighost1/fotosdotget'
+            },
+        ]
     },
-    //   {
-    //     url: 'https://images.unsplash.com/photo-1453747063559-36695c8771bd?auto=format&fit=crop&w=400',
-    //     title: 'Tour',
-    //     width: '38%',
-    //   },
-    //   {
-    //     url: 'https://images.unsplash.com/photo-1523309996740-d5315f9cc28b?auto=format&fit=crop&w=400',
-    //     title: 'Gastronomy',
-    //     width: '38%',
-    //   },
-    //   {
-    //     url: 'https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0?auto=format&fit=crop&w=400',
-    //     title: 'Shopping',
-    //     width: '24%',
-    //   },
-    //   {
-    //     url: 'https://images.unsplash.com/photo-1506941433945-99a2aa4bd50a?auto=format&fit=crop&w=400',
-    //     title: 'Walking',
-    //     width: '40%',
-    //   },
-    //   {
-    //     url: 'https://images.unsplash.com/photo-1533727937480-da3a97967e95?auto=format&fit=crop&w=400',
-    //     title: 'Fitness',
-    //     width: '20%',
-    //   },
-    //   {
-    //     url: 'https://images.unsplash.com/photo-1518136247453-74e7b5265980?auto=format&fit=crop&w=400',
-    //     title: 'Reading',
-    //     width: '40%',
-    //   },
 ];
 
 export default function ProductCategories() {
 
-    React.useEffect(()=>{
-        window.scrollTo(0,0)
-    },[])
+    const [selectedProject, setSelectedProject] = useState({})
+    const [dialogOpen, setDialogOpen] = useState(false)
+
+    React.useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
+    const selectProject = (data) => {
+        setSelectedProject(data)
+        openDialog()
+
+    }
+
+    const openDialog = () => {
+        setDialogOpen(true)
+    }
+    const closeDialog = () => {
+        setDialogOpen(false)
+    }
 
     return (
         <Container component="section" sx={{ mt: 8, mb: 4 }}>
+            <ProjectDetail
+                data={selectedProject}
+                open={dialogOpen}
+                handleClose={closeDialog}
+            />
             <Typography variant="h4" marked="center" align="center" component="h2">
                 Projects
             </Typography>
             <Box sx={{ mt: 8, display: 'flex', flexWrap: 'wrap' }}>
-                {images.map((image) => (
+                {projects.map((item) => (
                     <ImageIconButton
-                        key={image.title}
+                        key={item.title}
                         style={{
-                            width: image.width,
+                            width: item.width,
                         }}
+                        onClick={() => { selectProject(item) }}
                     >
                         <Box
                             sx={{
@@ -131,7 +166,7 @@ export default function ProductCategories() {
                                 bottom: 0,
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center 40%',
-                                backgroundImage: `url(${image.url})`,
+                                backgroundImage: `url(${item.url})`,
                             }}
                         />
                         <ImageBackdrop className="imageBackdrop" />
@@ -154,7 +189,7 @@ export default function ProductCategories() {
                                 color="inherit"
                                 className="imageTitle"
                             >
-                                {image.title}
+                                {item.title}
                                 <div className="imageMarked" />
                             </Typography>
                         </Box>
@@ -163,11 +198,11 @@ export default function ProductCategories() {
             </Box>
             <Box
                 sx={{
-                    mt:1,
+                    mt: 1,
                     display: 'flex',
-                    justifyContent:{
-                        xs:'center',
-                        sm:'flex-start'
+                    justifyContent: {
+                        xs: 'center',
+                        sm: 'flex-start'
                     }
                 }}
             >
