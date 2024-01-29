@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import AppAppBar from './modules/views/AppAppBar'
 import AppFooter from './modules/views/AppFooter'
 import withRoot from './modules/withRoot';
@@ -10,6 +10,7 @@ import {
     Container,
 } from '@mui/material';
 
+import ProjectDetail from './modules/components/ProjectDetail';
 
 const ImageBackdrop = styled('div')(({ theme }) => ({
     position: 'absolute',
@@ -59,40 +60,113 @@ const ImageIconButton = styled(ButtonBase)(({ theme }) => ({
     },
 }));
 
-const images = [
+const projects = [
     {
         url: '/svg/hollowed-boxes.svg',
         title: 'Pin at Ranchi',
         width: '60%',
+        description: 'A Full stack project that holds details of various places in Ranchi for hangout, stay etc. Tech stack used is MERN. Project is has three parts -client frontend, admin panel.',
+        links: [
+            {
+                name: 'Application',
+                url: 'https://pinatranchi.onrender.com/'
+            },
+            {
+                name: 'Backend Code',
+                url: 'https://github.com/anighost1/pin-at-ranchi-server'
+            },
+            {
+                name: 'Client side UI code',
+                url: 'https://github.com/anighost1/pin-at-ranchi'
+            },
+            {
+                name: 'Admin panel code',
+                url: 'https://github.com/anighost1/pin-at-ranchi-admin'
+            },
+        ]
     },
     {
         url: '/svg/geometric-intersection.svg',
         title: 'Fotos Dot Get',
         width: '40%',
+        description: 'A web application to get free photos. It is developed using Reactjs and it uses Unsplash API for data.',
+        links: [
+            {
+                name: 'Application',
+                url: 'https://fotosdotget.netlify.app/'
+            },
+            {
+                name: 'Repository',
+                url: 'https://github.com/anighost1/fotosdotget'
+            },
+        ]
     },
     {
         url: '/svg/sun-tornado.svg',
         title: 'Responsive template',
         width: '50%',
+        description: 'A simple responsive template having header, sidebar, body and footer using html, css and js. Feel free to use it for your project. Everyone is invited to contribute and make it even better.',
+        links: [
+            {
+                name: 'Application',
+                url: 'https://res-template.netlify.app/'
+            },
+            {
+                name: 'Repository',
+                url: 'https://github.com/anighost1/responsive-template'
+            },
+        ]
     },
     {
         url: '/svg/repeating-chevrons.svg',
         title: 'Stack GUI',
         width: '50%',
+        description: 'A simple representation of a stack but with interactive GUI.',
+        links: [
+            {
+                name: 'Application',
+                url: 'https://anighost1.github.io/stack-gui/home'
+            },
+            {
+                name: 'Repository',
+                url: 'https://github.com/anighost1/stack-gui'
+            },
+        ]
     },
 ];
 
 
 function Projects() {
 
-    React.useEffect(()=>{
-        window.scrollTo(0,0)
-    },[])
+    const [selectedProject, setSelectedProject] = useState({})
+    const [dialogOpen, setDialogOpen] = useState(false)
+
+    React.useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
+    const selectProject = (data) => {
+        setSelectedProject(data)
+        openDialog()
+
+    }
+
+    const openDialog = () => {
+        setDialogOpen(true)
+    }
+    const closeDialog = () => {
+        setDialogOpen(false)
+    }
 
     return (
         <React.Fragment>
             <AppAppBar />
-            <Container component="section" sx={{ mt: 8, mb: 4 }}>
+            <Container component="section" sx={{ mt: 8, mb: 4, minHeight: '70vh' }}>
+                <ProjectDetail
+                    data={selectedProject}
+                    open={dialogOpen}
+                    handleClose={closeDialog}
+                />
                 <Box
                     sx={{
                         mt: '4rem',
@@ -100,12 +174,13 @@ function Projects() {
                     }}
                 >
                     <Box sx={{ mt: 5, display: 'flex', flexWrap: 'wrap' }}>
-                        {images.map((image) => (
+                        {projects.map((item) => (
                             <ImageIconButton
-                                key={image.title}
+                                key={item.title}
                                 style={{
-                                    width: image.width,
+                                    width: item.width,
                                 }}
+                                onClick={() => { selectProject(item) }}
                             >
                                 <Box
                                     sx={{
@@ -116,7 +191,7 @@ function Projects() {
                                         bottom: 0,
                                         backgroundSize: 'cover',
                                         backgroundPosition: 'center 40%',
-                                        backgroundImage: `url(${image.url})`,
+                                        backgroundImage: `url(${item.url})`,
                                     }}
                                 />
                                 <ImageBackdrop className="imageBackdrop" />
@@ -139,7 +214,7 @@ function Projects() {
                                         color="inherit"
                                         className="imageTitle"
                                     >
-                                        {image.title}
+                                        {item.title}
                                         <div className="imageMarked" />
                                     </Typography>
                                 </Box>
