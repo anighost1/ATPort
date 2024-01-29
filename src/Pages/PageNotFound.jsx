@@ -4,7 +4,8 @@ import AppFooter from './modules/views/AppFooter'
 import withRoot from './modules/withRoot'
 import {
     Container,
-    Stack, Typography
+    Stack,
+    Typography,
 } from '@mui/material'
 
 function PageNotFound() {
@@ -17,9 +18,9 @@ function PageNotFound() {
                     mt: 8,
                     mb: 4,
                     minHeight: '70vh',
-                    display:'flex',
-                    justifyContent:'center',
-                    alignItems:'center'
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
                 }}
             >
                 <Typography variant='h1'> Page not found </Typography>

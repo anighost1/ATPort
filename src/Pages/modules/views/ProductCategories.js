@@ -66,7 +66,7 @@ const projects = [
         links: [
             {
                 name: 'Application',
-                url: 'https://pinatranchi.onrender.com/'
+                url: 'https://pinatranchi.tigga.in/'
             },
             {
                 name: 'Backend Code',
@@ -90,7 +90,7 @@ const projects = [
         links: [
             {
                 name: 'Application',
-                url: 'https://res-template.netlify.app/'
+                url: 'https://restemplate.tigga.in/'
             },
             {
                 name: 'Repository',
@@ -106,7 +106,7 @@ const projects = [
         links: [
             {
                 name: 'Application',
-                url: 'https://fotosdotget.netlify.app/'
+                url: 'https://fotosdotget.tigga.in/'
             },
             {
                 name: 'Repository',
